@@ -1,7 +1,10 @@
 package com.atguigu.gmall.product.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +34,27 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+
+    @RequestMapping("/test")
+    public void test(){
+        categoryService.test();
+    }
+
+    @RequestMapping("/list/tree")
+    public R listTree(@RequestParam Map<String, Object> params){
+
+        List<CategoryEntity> cate = categoryService.listWithTree();
+
+
+        return R.ok().put("cate", cate);
+    }
+
     /**
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions("product:category:list")
     public R list(@RequestParam Map<String, Object> params){
+
         PageUtils page = categoryService.queryPage(params);
 
         return R.ok().put("page", page);
