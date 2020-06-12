@@ -28,7 +28,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 new Query<CategoryEntity>().getPage(params),
                 new QueryWrapper<CategoryEntity>()
         );
-
         return new PageUtils(page);
     }
 
@@ -41,16 +40,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
             return categoryEntity.getParentCid() == 0;
         }).map(menu->{
             //添加子分类
-            //System.out.println(menu);
             menu.setChildren(getChildrens(menu,entities));
             return menu;
         }).sorted((menu1,menu2)->{
-            System.out.println(menu1);
-            System.out.println(menu2);
             return (menu1.getSort()==null?0:menu1.getSort())-(menu2.getSort()==null?0:menu2.getSort());
         }).collect(Collectors.toList());
-        //System.out.println(fuEntity);
-        //System.out.println(fuEntity.size());
         return fuEntity;
     }
 
@@ -59,15 +53,20 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         List<CategoryEntity> collect = all.stream().filter(categoryEntity -> {
             return categoryEntity.getParentCid().equals(root.getCatId());
         }).map(categoryEntity -> {
-            //System.out.println(categoryEntity);
             categoryEntity.setChildren(getChildrens(categoryEntity, all));
             return categoryEntity;
         }).sorted((menu1, menu2) -> {
             //菜单的排序
             return (menu1.getSort() == null ? 0 : menu1.getSort()) - (menu2.getSort() == null ? 0 : menu2.getSort());
         }).collect(Collectors.toList());
-
         return collect;
+    }
+
+    @Override
+    public void removeMenuByIds(List<Long> catIds) {
+        //TODO 1.检查当前删除菜单，是否被别的地方引用
+        //逻辑删除
+        baseMapper.deleteBatchIds(catIds);
     }
 
     @Override

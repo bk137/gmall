@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * 品牌
  * 
@@ -15,6 +17,7 @@ import lombok.Data;
  * @date 2020-05-29 16:04:22
  */
 @Data
+
 @TableName("pms_brand")
 public class BrandEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -27,6 +30,7 @@ public class BrandEntity implements Serializable {
 	/**
 	 * 品牌名
 	 */
+	@NotBlank(message = "品牌名不能为空")
 	private String name;
 	/**
 	 * 品牌logo地址

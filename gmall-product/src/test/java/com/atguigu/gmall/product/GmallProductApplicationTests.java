@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product;
 
+
 import com.atguigu.gmall.product.entity.BrandEntity;
 import com.atguigu.gmall.product.service.BrandService;
 import org.junit.Test;
@@ -8,6 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -16,6 +21,8 @@ public class GmallProductApplicationTests {
     @Resource
     BrandService brandService;
 
+
+
     @Test
     public void contextLoads() {
         BrandEntity brandEntity = new BrandEntity();
@@ -23,5 +30,7 @@ public class GmallProductApplicationTests {
 
         brandService.save(brandEntity);
     }
+
+
 
 }

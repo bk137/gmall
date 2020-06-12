@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    alicloud:
+      access-key: LTAI4FzqGE7qyRBTb1UPtsFN
+      secret-key: 2Oc7wARANFj7f3WrVfJm01GhIjVbUk
+      oss:
+          endpoint: oss-cn-shenzhen.aliyuncs.com
+          bucket: gmall-bk137
+  application:
+    name: gmall-third-party
+
+server:
+  port: 30000
